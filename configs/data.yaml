@@ -1,0 +1,59 @@
+seed: 2026
+out_questions: data/processed/questions.jsonl
+out_manifest: data/processed/questions_manifest.json
+
+splits:
+  train: 0.70
+  val: 0.10
+  test: 0.20
+
+datasets:
+  - name: medmcqa
+    hf_id: medmcqa
+    subset: null
+    split: train
+    n_sample: 250
+    streaming: false
+
+  - name: pubmedqa
+    hf_id: pubmed_qa
+    subset: pqa_labeled
+    split: train
+    n_sample: 150
+    streaming: false
+
+risk_tagging:
+  # simple keyword-based high-risk tagging; we refine later
+  emergency_keywords:
+    - "chest pain"
+    - "shortness of breath"
+    - "difficulty breathing"
+    - "stroke"
+    - "seizure"
+    - "unconscious"
+    - "syncope"
+    - "bleeding"
+    - "anaphylaxis"
+    - "suicid"
+    - "overdose"
+    - "sepsis"
+  medication_keywords:
+    - "dose"
+    - "dosage"
+    - "mg"
+    - "insulin"
+    - "warfarin"
+    - "anticoagul"
+    - "heparin"
+    - "steroid"
+    - "prednisone"
+    - "antibiotic"
+    - "opioid"
+  vulnerable_keywords:
+    - "pregnan"
+    - "child"
+    - "pediatric"
+    - "newborn"
+    - "elderly"
+    - "renal"
+    - "liver"

@@ -1,0 +1,20 @@
+models:
+  - model_id: "qwen2.5-7b-instruct"
+    hf_repo: "Qwen/Qwen2.5-7B-Instruct"
+    load_in_4bit: true
+
+  - model_id: "mistral-7b-instruct-v0.3"
+    hf_repo: "mistralai/Mistral-7B-Instruct-v0.3"
+    load_in_4bit: true
+
+  - model_id: "llama3.1-8b-instruct"
+    hf_repo: "meta-llama/Llama-3.1-8B-Instruct"
+    load_in_4bit: true
+
+  - model_id: "phi-3.5-mini-instruct"
+    hf_repo: "microsoft/Phi-3.5-mini-instruct"
+    load_in_4bit: true
+
+  - model_id: "gemma-2-9b-it"
+    hf_repo: "google/gemma-2-9b-it"
+    load_in_4bit: true

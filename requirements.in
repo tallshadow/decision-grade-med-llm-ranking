@@ -1,0 +1,13 @@
+numpy
+pandas
+pyyaml
+tqdm
+pydantic
+scikit-learn
+matplotlib
+datasets
+transformers
+accelerate
+torch
+streamlit
+bitsandbytes

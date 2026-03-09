@@ -1,0 +1,14 @@
+{
+  "seed": 2026,
+  "n_total": 400,
+  "by_source": {
+    "medmcqa": 250,
+    "pubmedqa": 150
+  },
+  "by_split": {
+    "train": 280,
+    "test": 80,
+    "val": 40
+  },
+  "high_risk_count": 48
+}

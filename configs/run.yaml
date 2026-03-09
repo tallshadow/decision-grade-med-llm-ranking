@@ -1,0 +1,14 @@
+run_id: "run_0001"
+seed: 2026
+
+paths:
+  questions: "data/processed/questions.jsonl"
+  generations: "data/processed/generations.jsonl"
+  generations_manifest: "data/processed/generations_manifest.json"
+
+generation:
+  max_new_tokens: 256
+  temperature: 0.2
+  top_p: 0.95
+  do_sample: true
+  repetition_penalty: 1.0
