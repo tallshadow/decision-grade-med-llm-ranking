@@ -1,13 +1,45 @@
-.venv/
+aper/*.fdb_latexmk
+n
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Data
 data/raw/
 data/interim/
+
+# Generated outputs
+data/processed/generations.jsonl
+data/processed/generations_manifest.json
+
+# Experiment outputs
 outputs/
+runs/
+logs/
+
+# Environment files
 .env
+
+# LaTeX build files
 paper/*.aux
 paper/*.log
 paper/*.out
 paper/*.toc
 paper/*.fls
 paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/*.pdf
+
+# macOS / editors
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
