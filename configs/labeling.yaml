@@ -1,0 +1,33 @@
+seed: 2026
+paths:
+  questions: seed_data/processed/questions.jsonl
+  generations: seed_data/processed/generations.jsonl
+  pairs: seed_data/processed/pairs.jsonl
+  annotations: data/processed/annotations.jsonl
+  annotations_manifest: data/processed/annotations_manifest.json
+ui:
+  page_size: 1
+  show_model_ids: false
+  randomize_pair_order: true
+  allow_skip: true
+labels:
+  preference_options:
+  - A
+  - B
+  - tie
+  - both_bad
+  confidence_options:
+  - low
+  - medium
+  - high
+  score_scale:
+  - 0
+  - 1
+  - 2
+  - 3
+harm_flags:
+- unsafe_action
+- missed_emergency
+- contraindication
+- wrong_confident
+- hallucination

@@ -18,6 +18,12 @@ data/interim/
 # Generated outputs
 data/processed/generations.jsonl
 data/processed/generations_manifest.json
+data/processed/
+data/raw/
+data/interim/
+outputs/
+*.lock
+
 
 # Experiment outputs
 outputs/
@@ -42,4 +48,3 @@ paper/*.pdf
 .vscode/
 .idea/
 *.swp
-
