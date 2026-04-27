@@ -1,0 +1,6 @@
+streamlit
+pyyaml
+filelock
+pydantic
+pandas
+numpy
