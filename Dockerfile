@@ -13,7 +13,8 @@ COPY . .
 
 ENV STREAMLIT_SERVER_HEADLESS=true
 ENV PYTHONPATH=/app
+ENV PORT=7860
 
-EXPOSE 8501
+EXPOSE 7860
 
 CMD ["bash", "scripts/05_label_ui.sh"]
