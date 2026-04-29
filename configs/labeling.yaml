@@ -31,3 +31,4 @@ harm_flags:
 - contraindication
 - wrong_confident
 - hallucination
+- malformed_or_template_copy
