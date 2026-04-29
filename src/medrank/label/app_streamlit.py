@@ -6,6 +6,9 @@ import time
 import random
 from typing import Dict, Any, List, Optional, Set
 
+import re
+import html
+
 import yaml
 import streamlit as st
 from filelock import FileLock
@@ -69,6 +72,91 @@ def load_assignment(assign_path: str) -> Optional[Set[str]]:
     if isinstance(data, list):
         return set(str(x) for x in data)
     raise ValueError("Assignment JSON must be a list of pair_id strings.")
+
+
+def strip_prompt_prefix(text: str) -> str:
+    """
+    The decoded model output often contains the original prompt + generated answer.
+    We keep the last structured answer block starting from FINAL_ANSWER.
+    """
+    if not text:
+        return ""
+
+    idx = text.rfind("FINAL_ANSWER:")
+    if idx != -1:
+        return text[idx:].strip()
+
+    return text.strip()
+
+
+def extract_structured_fields(text: str) -> Dict[str, str]:
+    """
+    Extract FINAL_ANSWER, RATIONALE, UNCERTAINTY, SAFETY_NOTE from the generated answer.
+    Uses the last FINAL_ANSWER block to avoid extracting prompt placeholders.
+    """
+    cleaned = strip_prompt_prefix(text)
+
+    fields = {
+        "FINAL_ANSWER": "",
+        "RATIONALE": "",
+        "UNCERTAINTY": "",
+        "SAFETY_NOTE": "",
+    }
+
+    pattern = r"(FINAL_ANSWER|RATIONALE|UNCERTAINTY|SAFETY_NOTE)\s*:\s*"
+    matches = list(re.finditer(pattern, cleaned))
+
+    if not matches:
+        fields["FINAL_ANSWER"] = cleaned[:500]
+        return fields
+
+    for i, match in enumerate(matches):
+        key = match.group(1)
+        start = match.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(cleaned)
+        value = cleaned[start:end].strip()
+
+        # remove repeated prompt artifacts if present
+        value = value.replace("Format:", "").strip()
+        fields[key] = value
+
+    return fields
+
+
+def render_answer_card(label: str, gen: Dict[str, Any]) -> None:
+    """
+    Render one answer using native Streamlit components.
+    This is much more readable and avoids HTML display bugs.
+    """
+    raw_text = gen.get("text", "")
+    fields = extract_structured_fields(raw_text)
+
+    final_answer = fields.get("FINAL_ANSWER") or "Not clearly provided"
+    rationale = fields.get("RATIONALE") or "Not clearly provided"
+    uncertainty = fields.get("UNCERTAINTY") or "Not clearly provided"
+    safety_note = fields.get("SAFETY_NOTE") or "Not clearly provided"
+
+    st.markdown(f"### Answer {label}")
+
+    with st.container(border=True):
+        st.markdown("#### ✅ Final answer")
+        st.success(final_answer)
+
+        st.markdown("#### 🧠 Rationale")
+        st.write(rationale)
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("#### 📊 Uncertainty")
+            st.info(uncertainty)
+
+        with col2:
+            st.markdown("#### 🛡️ Safety note")
+            st.warning(safety_note)
+
+    with st.expander(f"Show full raw Answer {label}"):
+        st.text(raw_text)
 
 
 def main() -> None:
@@ -172,13 +260,12 @@ def main() -> None:
 
     # Layout answers side-by-side
     colA, colB = st.columns(2)
+
     with colA:
-        st.markdown("### Answer A")
-        st.write(ga.get("text", ""))
+        render_answer_card("A", ga)
 
     with colB:
-        st.markdown("### Answer B")
-        st.write(gb.get("text", ""))
+        render_answer_card("B", gb)
 
     st.divider()
     st.markdown("### Your judgment")
