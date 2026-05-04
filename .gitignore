@@ -48,3 +48,4 @@ paper/*.pdf
 .vscode/
 .idea/
 *.swp
+release/
