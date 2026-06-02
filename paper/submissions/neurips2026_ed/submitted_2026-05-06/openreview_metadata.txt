@@ -1,0 +1,15 @@
+Venue: NeurIPS 2026 Evaluations & Datasets Track
+Title: MEDRANK-DECISIONGRADE: Harm-Aware Preference Ranking for Medical LLMs with Clinician Audit
+
+Dataset URL:
+https://huggingface.co/datasets/medrank-benchmark/medrank-decisiongrade
+
+Code URL:
+https://huggingface.co/datasets/medrank-benchmark/medrank-decisiongrade/tree/main/code
+
+Submission status:
+Submitted to OpenReview.
+
+Notes:
+This folder stores the exact submitted PDF and metadata for reproducibility.
+Do not modify these files after submission.
